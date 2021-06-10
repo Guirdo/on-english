@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "446934615966",
+    "project_id": "on-english",
+    "storage_bucket": "on-english.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446934615966:android:0bc4541b59572ab79f388f",
+        "android_client_info": {
+          "package_name": "com.seblab.on_english"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "446934615966-n23p9vh2bf49ac79p5dv9f3eokcd7aku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seblab.on_english",
+            "certificate_hash": "5a8c07b31a58a66a388b0630de1f94727be3f2eb"
+          }
+        },
+        {
+          "client_id": "446934615966-trgjstgeid05nret1pqrvkl3b6imcqbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH6sxqL8ow5P8VLQwM0pXxNqGgK6oi4PM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "446934615966-trgjstgeid05nret1pqrvkl3b6imcqbb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
