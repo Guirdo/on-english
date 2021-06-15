@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:on_english/bloc/authentication/authentication_bloc.dart';
 
 class NavBar extends StatelessWidget {
+  final String name;
+  final String email;
+  final String photo;
+
+  NavBar({Key key,@required this.name,@required this.email,@required this.photo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -8,12 +16,12 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Guirdo'),
-            accountEmail: Text('guirdo@email.com'),
+            accountName: Text(name),
+            accountEmail: Text(email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                   child: Image.network(
-                      'https://avatars.githubusercontent.com/u/21044700?v=4',
+                      photo,
                       width: 90.0,
                       height: 90.0,
                       fit: BoxFit.cover)),
@@ -86,7 +94,7 @@ class NavBar extends StatelessWidget {
             leading: Icon(Icons.logout),
             title: Text('Log out'),
             onTap: () {
-              Navigator.pushNamed(context, 'log_out');
+              BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
             },
           ),
           Divider(),

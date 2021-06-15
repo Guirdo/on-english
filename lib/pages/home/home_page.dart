@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:on_english/src/navbar.dart';
+import 'package:on_english/pages/home/navbar.dart';
 
 class HomePage extends StatelessWidget {
+  final String name;
+  final String email;
+  final String photo;
+
+  HomePage({Key key,@required this.name,@required this.email,@required this.photo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      drawer: NavBar(name: name,email: email,photo: photo),
       appBar: AppBar(
         title: Text('On English Home'),
       ),
