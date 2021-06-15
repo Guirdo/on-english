@@ -5,7 +5,6 @@ import 'package:on_english/bloc/authentication/authentication_bloc.dart';
 import 'package:on_english/pages/home/home_page.dart';
 import 'package:on_english/pages/login/login_page.dart';
 import 'package:on_english/pages/splash_screen.dart';
-import 'package:on_english/routes/routes.dart';
 import 'package:on_english/utils/user_repository.dart';
 
 void main() async {
@@ -54,16 +53,4 @@ class App extends StatelessWidget {
       ),
     );
   }
-
-  /*
-  MaterialApp myApp() {
-    return MaterialApp(
-      title: 'On English',
-      initialRoute: 'login',
-      routes: getApplicationRoutes(),
-      onGenerateRoute: (settings) {
-        return MaterialPageRoute(builder: (context) => HomePage());
-      },
-    );
-  }*/
 }
