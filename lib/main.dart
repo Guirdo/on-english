@@ -37,11 +37,9 @@ class App extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is Uninitialized) {
-            print("No estoy dentro");
             return SplashScreen();
           }
           if (state is Authenticated) {
-            print("Estoy dentro");
             return HomePage(
               name: state.displayName,
               email: state.email,
@@ -49,7 +47,6 @@ class App extends StatelessWidget {
             );
           }
           if(state is Unauthenticated){
-            print("Estoy unautenticado");
             return LoginPage(userRepository: _userRepository,);
           }
           return Container();
