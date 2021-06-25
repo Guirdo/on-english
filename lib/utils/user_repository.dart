@@ -1,13 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserRepository {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final FirebaseFirestore _firebaseFirestore;
 
-  UserRepository({FirebaseAuth firebaseAuth, GoogleSignIn googleSignIn})
+  UserRepository({
+    FirebaseAuth firebaseAuth, 
+    GoogleSignIn googleSignIn,
+    FirebaseFirestore firebaseFirestore
+  })
       : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+        _googleSignIn = googleSignIn ?? GoogleSignIn(),
+        _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -46,18 +53,48 @@ class UserRepository {
 
   Future<bool> isSignedIn() async {
     final currentUser = _firebaseAuth.currentUser;
+    print("Hola existo aqui");
+    isRegistered(currentUser);
+
     return currentUser != null;
   }
 
-  Future<String> getUser() async {
-    return (_firebaseAuth.currentUser).displayName;
+  Future<void> isRegistered(User currentUser) async{
+    if(currentUser != null){
+      final CollectionReference mtRef = _firebaseFirestore.collection('music_taste');
+
+      Object taste = await mtRef.doc(currentUser.uid).get().then((value) => value.data());
+      if(taste == null){
+        await addUser(currentUser,mtRef);
+        await addRecord(currentUser);
+      }
+    }
   }
 
-  Future<String> getEmail() async {
-    return (_firebaseAuth.currentUser).email;
+  Future<void> addRecord(currentUser){
+    final CollectionReference recordRef = _firebaseFirestore.collection('record');
+
+    return recordRef.doc(currentUser.uid).set({
+      currentUser.displayName   :   150
+    });
   }
 
-  Future<String> getPhoto() async {
-    return (_firebaseAuth.currentUser).photoURL;
+  Future<void> addUser(User currentUser, CollectionReference mtRef){
+    return mtRef.doc(currentUser.uid).set({
+      'Country'     :   false,
+      'Pop'         :   false,
+      'Rock'        :   false,
+      'Metal'       :   false,
+      'Alternative' :   false,
+      'Indie'       :   false,
+      'Rap'         :   false,
+      'Electronic'  :   false,
+      'Blues'       :   false,
+      'Balad'       :   false
+    });
+  }
+
+  Future<User> getUser() async {
+    return _firebaseAuth.currentUser;
   }
 }

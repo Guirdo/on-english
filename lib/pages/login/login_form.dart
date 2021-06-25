@@ -87,7 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Icon(Icons.supervised_user_circle_rounded,size: 200.0,),
+                    child: Icon(Icons.person,size: 200.0,),
                   ),
                   /*
                   TextFormField(

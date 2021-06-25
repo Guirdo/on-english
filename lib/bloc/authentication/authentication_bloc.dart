@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:on_english/utils/user_repository.dart';
 
@@ -37,9 +38,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
       if(isSignedIn){
         final user = await _userRepository.getUser();
-        final email = await _userRepository.getEmail();
-        final photoURL = await _userRepository.getPhoto();
-        yield Authenticated(user,email,photoURL);
+        yield Authenticated(user);
       }else{
         yield Unauthenticated();
       }
@@ -50,9 +49,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   Stream<AuthenticationState> _mapLoggedInToState() async* {
     yield Authenticated(
-      await _userRepository.getUser(),
-      await _userRepository.getEmail(),
-      await _userRepository.getPhoto()
+      await _userRepository.getUser()
     );
   }
 

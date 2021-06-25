@@ -1,13 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_english/bloc/authentication/authentication_bloc.dart';
+import 'package:on_english/pages/profile_page.dart';
+
+import '../record_page.dart';
 
 class NavBar extends StatelessWidget {
-  final String name;
-  final String email;
-  final String photo;
+  final User user;
 
-  NavBar({Key key,@required this.name,@required this.email,@required this.photo}) : super(key: key);
+  NavBar({Key key, @required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,29 +18,43 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(name),
-            accountEmail: Text(email),
+            accountName: Text(user.displayName),
+            accountEmail: Text(user.email),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                  child: Image.network(
-                      photo,
-                      width: 90.0,
-                      height: 90.0,
-                      fit: BoxFit.cover)),
+                child: Image.network(
+                  user.photoURL,
+                  width: 150.0, 
+                  height: 150.0, 
+                  fit: BoxFit.cover)
+                ),
             ),
             decoration: BoxDecoration(
                 color: Colors.blue,
                 image: DecorationImage(
-                  image: NetworkImage(
-                      'https://scontent.fcvj1-1.fna.fbcdn.net/v/t1.6435-9/148843787_3659996474078026_4778017136154797220_n.jpg?_nc_cat=106&ccb=1-3&_nc_sid=e3f864&_nc_ohc=XL_eSJZwFy0AX--KKyy&_nc_ht=scontent.fcvj1-1.fna&oh=be06b8b84067b1fee884f5dfbbc6f206&oe=60C86867'),
+                  image: AssetImage('assets/landscape/sea.jpg'),
                   fit: BoxFit.cover,
                 )),
           ),
           ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage(user: user)),
+              );
+            },
+          ),
+          Divider(),
+          ListTile(
             leading: Icon(Icons.bar_chart),
             title: Text('Record'),
             onTap: () {
-              Navigator.pushNamed(context, 'record');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RecordPage()),
+              );
             },
           ),
           Divider(),

@@ -5,6 +5,7 @@ import 'package:on_english/bloc/authentication/authentication_bloc.dart';
 import 'package:on_english/pages/home/home_page.dart';
 import 'package:on_english/pages/login/login_page.dart';
 import 'package:on_english/pages/splash_screen.dart';
+import 'package:on_english/routes/routes.dart';
 import 'package:on_english/utils/user_repository.dart';
 
 void main() async {
@@ -40,9 +41,7 @@ class App extends StatelessWidget {
           }
           if (state is Authenticated) {
             return HomePage(
-              name: state.displayName,
-              email: state.email,
-              photo: state.photoURL,
+              user: state.user
             );
           }
           if(state is Unauthenticated){
